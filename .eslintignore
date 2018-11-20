@@ -1,5 +1,6 @@
 dist/**/*.js
 config/*.js
+conf/*.js
 src/assets
 ./public
 ./public/**/*.js

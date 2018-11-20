@@ -21,6 +21,11 @@ module.exports = async function (ctx, next) {
         });
     }
 
+    // 兼容multer
+    if (ctx.req) {
+        ctx.req.state = ctx.req.state || {};
+        ctx.req.state['user'] = isFind;
+    }
     ctx.state.user = isFind;
     await next();
 };

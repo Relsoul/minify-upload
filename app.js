@@ -6,6 +6,7 @@ const bodyParser = require('koa-bodyparser');
 const multer = require('koa-multer');
 const CLIEngine = require('eslint').CLIEngine;
 const path = require('path');
+const fs = require('fs-extra');
 // const upload = multer({ dest: './uploads/' });
 
 const cli = new CLIEngine({
@@ -32,11 +33,14 @@ if (output) {
     return false;
 }
 
+fs.ensureDirSync(path.join(__dirname, './public/uploads'));
+
 const app = new Koa();
 const root = './public';
 const opts = {};
 const conf = require('./conf/conf');
-app.context.resData = function({ code, msg, data }) {
+app.context.resData = function({ code, msg, data, __status = 200 }) {
+    this.response.ctx.status = __status;
     this.response.ctx.body = { code, msg, data };
 };
 app
