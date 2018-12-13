@@ -16,9 +16,9 @@ module.exports['upload'] = async function(ctx) {
     const req = ctx.req;
     const fileInfo = path.parse(req.file.filename);
     let keys = Object.keys(conf.accept);
-    let isFind = keys.find((n) => {
+    let isFind = keys.find(n => {
         let reg = new RegExp(n);
-        let isAccept = reg.test(fileInfo.ext);
+        let isAccept = reg.test(fileInfo.ext.toLowerCase());
         return isAccept;
     });
 
@@ -49,7 +49,7 @@ module.exports['upload'] = async function(ctx) {
         msg: '上传成功',
         data: {
             filename: req.file.filename,
-            url: path.join(conf.host, req.state.__userPath, req.file.filename)
+            url: path.join(conf.host, req.state.__userProjectPath, req.file.filename)
         }
     });
 };

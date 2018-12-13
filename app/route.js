@@ -12,7 +12,9 @@ const storage = multer.diskStorage({
         const __userPath = `${req.state.user.name}/${moment().format('YYYY-MM-DD')}`;
         const __filePath = `../public/uploads/${__userPath}`;
         const userPath = path.join(__dirname, __filePath);
+        const userProjectPath = `/public/uploads/${__userPath}`;
         req.state['__userPath'] = userPath;
+        req.state['__userProjectPath'] = userProjectPath;
         fs.ensureDirSync(userPath);
         cb(null, userPath);
     },
